@@ -9,6 +9,7 @@ from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart
 from aiogram.types import Message, FSInputFile
 from aiogram.utils.keyboard import InlineKeyboardBuilder
+from prompt_analyzer import prompt_analyzer
 
 users_sending = [] # Users sending promts store here (Could be changed for security)
 user_languages = {}
@@ -27,8 +28,13 @@ def get_json_string(key: str, user_id: int):
     except:
         return languages["en"][key]
 
+#model_path = "C:/Users/aleks/Desktop/step2/models/Llama-2-7b-Chat-AWQ" gotta fix paths
+
+
+
 def get_result_by_propmt(prompt: str):
     result = "placeholder"
+    #result = prompt_analyzer(prompt=prompt, repo=model_path)
     return result
 
 # Sends start message
