@@ -1,0 +1,16 @@
+{
+    "lang": "English", 
+    "welcome": "This is AI Prompt Analyzer project. Click the button to continue.",
+    "menu": "The AI Prompt Analyzer helps people to make good prompts for other AIs. Press \"Analyze Prompt\" for advices.",
+    "info": "Project by:\nMTUCI BVT2206 Group\n\nGitHub repo: TODO",
+    "analyze_ready": "You've already started analyzer. Press \"Back to menu\" to quit.",
+    "write_prompt": "Write your prompts as message. Press \"Back to menu\" to quit.",
+    "waiting": "The AI is analyzing your promps",
+    "back": "Back to menu",
+    "analyze": "Analyze Prompt",
+    "credits": "Credits",
+    "languages": "Languages",
+    "language_menu": "Select your language",
+    "language_changed": "Current language: English",
+    "continue": "Continue"
+}
