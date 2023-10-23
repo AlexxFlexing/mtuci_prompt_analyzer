@@ -112,7 +112,7 @@ async def main() -> None:
 if __name__ == "__main__":
     for file in listdir("resources/languages"):
         if file.endswith(".json"):
-            languages[file.removesuffix(".json")] = json.load(open("resources/languages/" + file))
+            languages[file.removesuffix(".json")] = json.load(open("resources/languages/" + file, encoding="utf-8"))
             print(file.removesuffix(".json"))
             logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     asyncio.run(main())
