@@ -2,7 +2,7 @@
     "lang": "English", 
     "welcome": "This is AI Prompt Analyzer project. Click the button to continue.",
     "menu": "The AI Prompt Analyzer helps people to make good prompts for other AIs. Press \"Analyze Prompt\" for advices.",
-    "info": "Project by:\nMTUCI BVT2206 Group\n\nGitHub repo: TODO",
+    "info": "Project by:\nMTUCI BVT2206 Group\n\nGitHub repo: https://github.com/AlexxFlexing/mtuci_prompt_analyzer",
     "analyze_ready": "You've already started analyzer. Press \"Back to menu\" to quit.",
     "write_prompt": "Write your prompts as message. Press \"Back to menu\" to quit.",
     "waiting": "The AI is analyzing your promps",
