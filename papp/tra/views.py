@@ -33,10 +33,7 @@ def random_string():
 	return random_str
 
 class dataUpload(APIView):
-	permission_classes = (permissions.AllowAny)
-	
-	
-	
+	permission_classes = (permissions.AllowAny) # Я вот думаю нужны ли мне эти пермишоны вообще
 	def home(self, request):
 		clean_data = custom_validation(request.data)
 		serializer = DataSerializer(data=clean_data)
