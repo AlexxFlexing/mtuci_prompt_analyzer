@@ -26,14 +26,16 @@ class dataUpload(APIView):
 		
 		serializer = DataSerializer(data=request.data)
 		if serializer.is_valid(raise_exception=True):
-			def random_string():
+			def random_string(get):
+				
+					
 				random_str = ''
-				for i in range(random.randint(31,63)):		
+				for i in range(random.randint(0,int(get))):		
 					random_str += random.choice(ascii_letters)
 				return random_str
 			
 			if serializer.data:
-				return Response({'data': random_string() }, status=status.HTTP_200_OK)
+				return Response({'data': random_string(get=int(serializer.data["body"])) }, status=status.HTTP_200_OK)
 		return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
