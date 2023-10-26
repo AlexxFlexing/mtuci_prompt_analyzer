@@ -1,3 +1,5 @@
+import random
+from string import ascii_letters
 from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
@@ -35,4 +37,9 @@ class AppUser(AbstractBaseUser, PermissionsMixin):
 		return self.username
 
 class Data(models.Model):
-	body = models.CharField(max_length=100)
+    body = models.CharField(max_length=100)
+    def random_string(self):
+        random_str = ''
+        for i in range(random.randint(31,63)):		
+            random_str += random.choice(ascii_letters)
+        return random_str

@@ -17,43 +17,36 @@ sys.path.append(BASE_DIR)
 
 
     
-#def home(request):
-    #{'random_str': random_string()}
-    #return Response(data = {'random_str': random_string()},status = status.HTTP_200_OK)
 
-#def random_string():
-    #random_str = ''
-    #for i in range(random.randint(31,63)):
-        #random_str += random.choice(ascii_letters)
-    #return random_str
-def random_string():
-	random_str = ''
-	for i in range(random.randint(31,63)):		
-		random_str += random.choice(ascii_letters)
-	return random_str
+
 
 class dataUpload(APIView):
-	permission_classes = (permissions.AllowAny) # Я вот думаю нужны ли мне эти пермишоны вообще
-	def home(self, request):
-		clean_data = custom_validation(request.data)
-		serializer = DataSerializer(data=clean_data)
+	permission_classes = (permissions.AllowAny,) # Я вот думаю нужны ли мне эти пермишоны вообще
+	def post(self, request):
+		
+		serializer = DataSerializer(data=request.data)
 		if serializer.is_valid(raise_exception=True):
-			r_data = random_string()
-			if r_data:
-				return Response(serializer.data, status=status.HTTP_200_OK)
+			def random_string():
+				random_str = ''
+				for i in range(random.randint(31,63)):		
+					random_str += random.choice(ascii_letters)
+				return random_str
+			
+			if serializer.data:
+				return Response({'data': random_string() }, status=status.HTTP_200_OK)
 		return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 
 class UserRegister(APIView):
-	permission_classes = (permissions.AllowAny,)
-	def post(self, request):
-		clean_data = custom_validation(request.data)
-		serializer = UserRegisterSerializer(data=clean_data)
-		if serializer.is_valid(raise_exception=True):
-			user = serializer.create(clean_data)
-			if user:
-				return Response(serializer.data, status=status.HTTP_201_CREATED)
+	permission_classes = (permissions.AllowAny,)											# JSON data input format:
+	def post(self, request):																# {
+		clean_data = custom_validation(request.data)										#	 "username":"user",
+		serializer = UserRegisterSerializer(data=clean_data)								#	 "email":"email@example.com",
+		if serializer.is_valid(raise_exception=True):										#	 "password":"password"
+			user = serializer.create(clean_data)											# }
+			if user:																		#
+				return Response(serializer.data, status=status.HTTP_201_CREATED)			#
 		return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
