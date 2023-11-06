@@ -21,7 +21,7 @@ sys.path.append(BASE_DIR)
 
 
 class dataUpload(APIView):
-	permission_classes = (permissions.AllowAny,) # Я вот думаю нужны ли мне эти пермишоны вообще
+	permission_classes = (permissions.AllowAny,) # Я вот думаю нужны ли мне эти пермишоны вообще upd конешно нужны
 	def post(self, request):
 		
 		serializer = DataSerializer(data=request.data)
