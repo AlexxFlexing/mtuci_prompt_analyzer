@@ -50,10 +50,8 @@ class UserRegister(APIView):
 		clean_data = custom_validation(request.data)										#	{"username":"user", "email":"email@example.com",  "password":"password"}           
 		serializer = UserRegisterSerializer(data=clean_data)								#	 
 		if serializer.is_valid(raise_exception=True):	
-												#	           
-			user = serializer.create(clean_data)											#
-			token = Token.objects.create(user=user)
-        										# }                                                     
+			user = serializer.create(clean_data)											
+			token = Token.objects.create(user=user)                                                 
 			if user:																		
 				return Response({'token': token.key, 'user': serializer.data},	status=status.HTTP_201_CREATED)			
 		return Response(status=status.HTTP_400_BAD_REQUEST)
