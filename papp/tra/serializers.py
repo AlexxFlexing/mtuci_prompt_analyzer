@@ -2,7 +2,7 @@ from django.forms import ValidationError
 from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate
 from django.db import models
-
+from django.contrib.auth.hashers import make_password
 from .models import Data
 
 UserModel = get_user_model()
@@ -17,6 +17,11 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 		user_obj.username = clean_data['username']
 		user_obj.save()
 		return user_obj
+
+			#user = User.objects.create(
+       		#email=validated_data['email'],
+       		#username=validated_data['username'],
+       		#password = make_password(validated_data['password'])
 
 class UserLoginSerializer(serializers.Serializer):
 	email = serializers.EmailField()
