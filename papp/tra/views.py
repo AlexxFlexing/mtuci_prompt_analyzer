@@ -10,6 +10,10 @@ from rest_framework.response import Response
 from .serializers import UserRegisterSerializer, UserLoginSerializer, UserSerializer, DataSerializer
 from rest_framework import permissions, status
 from .validations import custom_validation, validate_email, validate_password
+from rest_framework.authtoken.models import Token
+
+
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
@@ -21,7 +25,7 @@ sys.path.append(BASE_DIR)
 
 
 class dataUpload(APIView):
-	permission_classes = (permissions.AllowAny,) # Я вот думаю нужны ли мне эти пермишоны вообще upd конешно нужны
+	permission_classes = (permissions.IsAuthenticated,) 
 	def post(self, request):
 		
 		serializer = DataSerializer(data=request.data)
@@ -41,30 +45,31 @@ class dataUpload(APIView):
 
 
 class UserRegister(APIView):
-	permission_classes = (permissions.AllowAny,)											# JSON data input format:
-	def post(self, request):																# {"email":"email@example.com","password":"password"}
-		clean_data = custom_validation(request.data)										#	
+	permission_classes = (permissions.AllowAny,)											# JSON data input format:                         
+	def post(self, request):																#                               
+		clean_data = custom_validation(request.data)										#	{"username":"user", "email":"email@example.com",  "password":"password"}           
 		serializer = UserRegisterSerializer(data=clean_data)								#	 
-		if serializer.is_valid(raise_exception=True):										#	 
-			user = serializer.create(clean_data)											#
-			if user:																		#
-				return Response(serializer.data, status=status.HTTP_201_CREATED)			#
+		if serializer.is_valid(raise_exception=True):	
+			user = serializer.create(clean_data)											
+			token = Token.objects.create(user=user)                                                 
+			if user:																		
+				return Response({'token': token.key, 'user': serializer.data},	status=status.HTTP_201_CREATED)			
 		return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-class UserLogin(APIView):
-	permission_classes = (permissions.AllowAny,)
-	authentication_classes = (SessionAuthentication,)
-	##
-	def post(self, request):
-		data = request.data
+class UserLogin(APIView):																	# JSON data input format:      
+	permission_classes = (permissions.AllowAny,)											#            {"email":"email@example.com",  "password":"password"}               
+	authentication_classes = (SessionAuthentication,)                          				#	 
+	def post(self, request):																#	  
+		data = request.data																	#                           
 		assert validate_email(data)
 		assert validate_password(data)
 		serializer = UserLoginSerializer(data=data)
 		if serializer.is_valid(raise_exception=True):
 			user = serializer.check_user(data)
+			token, created = Token.objects.get_or_create(user=user)
 			login(request, user)
-			return Response(serializer.data, status=status.HTTP_200_OK)
+			return Response({'token': token.key, 'user': serializer.data},status=status.HTTP_200_OK)
 
 
 class UserLogout(APIView):
