@@ -50,6 +50,11 @@ INSTALLED_APPS = [
     'corsheaders',
     'tra',
 ]
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION':[
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
 AUTH_USER_MODEL = 'tra.AppUser'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

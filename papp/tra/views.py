@@ -42,11 +42,11 @@ class dataUpload(APIView):
 
 class UserRegister(APIView):
 	permission_classes = (permissions.AllowAny,)											# JSON data input format:
-	def post(self, request):																# {
-		clean_data = custom_validation(request.data)										#	 "username":"user",
-		serializer = UserRegisterSerializer(data=clean_data)								#	 "email":"email@example.com",
-		if serializer.is_valid(raise_exception=True):										#	 "password":"password"
-			user = serializer.create(clean_data)											# }
+	def post(self, request):																# {"email":"email@example.com","password":"password"}
+		clean_data = custom_validation(request.data)										#	
+		serializer = UserRegisterSerializer(data=clean_data)								#	 
+		if serializer.is_valid(raise_exception=True):										#	 
+			user = serializer.create(clean_data)											#
 			if user:																		#
 				return Response(serializer.data, status=status.HTTP_201_CREATED)			#
 		return Response(status=status.HTTP_400_BAD_REQUEST)
