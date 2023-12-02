@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
-
+from django.contrib.auth.hashers import make_password
 UserModel = get_user_model()
 
 def custom_validation(data):
@@ -32,7 +32,7 @@ def validate_username(data):
     return True
 
 def validate_password(data):
-    password = data['password'].strip()
+    password = make_password
     if not password:
         raise ValidationError('a password is needed')
     return True

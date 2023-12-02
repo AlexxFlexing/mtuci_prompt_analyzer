@@ -50,7 +50,9 @@ class UserRegister(APIView):
 		clean_data = custom_validation(request.data)										#	{"username":"user", "email":"email@example.com",  "password":"password"}           
 		serializer = UserRegisterSerializer(data=clean_data)								#	 
 		if serializer.is_valid(raise_exception=True):	
-			user = serializer.create(clean_data)											
+			clean_data.password
+			user = serializer.create(clean_data)	
+													
 			token = Token.objects.create(user=user)                                                 
 			if user:																		
 				return Response({'token': token.key, 'user': serializer.data},	status=status.HTTP_201_CREATED)			
@@ -69,7 +71,7 @@ class UserLogin(APIView):																	# JSON data input format:
 			user = serializer.check_user(data)
 			token, created = Token.objects.get_or_create(user=user)
 			login(request, user)
-			return Response({'token': token.key, 'user': serializer.data},status=status.HTTP_200_OK)
+			return Response({'token': token.key, 'user': serializer.data['email']},status=status.HTTP_200_OK)
 
 
 class UserLogout(APIView):
