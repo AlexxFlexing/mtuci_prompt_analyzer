@@ -50,7 +50,6 @@ class UserRegister(APIView):
 		clean_data = custom_validation(request.data)										#	{"username":"user", "email":"email@example.com",  "password":"password"}           
 		serializer = UserRegisterSerializer(data=clean_data)								#	 
 		if serializer.is_valid(raise_exception=True):	
-			clean_data.password
 			user = serializer.create(clean_data)	
 													
 			token = Token.objects.create(user=user)                                                 

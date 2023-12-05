@@ -1,17 +1,28 @@
 from django.test import TestCase
-from rest_framework.test import APIRequestFactory
-from views import UserLogin
+from django.urls import reverse
+from rest_framework.test import APIRequestFactory, APITestCase, APIClient
+from .views import UserLogin, UserRegister
+import json
 # Create your tests here.
-class LoginTest(TestCase):
+class LoginTest(APITestCase):
 
-    def log_in(self, data, title="log_in_test",body="bebebe"):
-        factory = APIRequestFactory
-        request = factory.post(path='/login',data=data,format='json',title=title,body=body)
-        return request
-    def test_login(self):
-        data = {"email":"email@example.com",  "password":"password"} 
-        url = UserLogin
-        resp = self.log_in(data)
-        self.assertEqual(resp.status_code,200)
+    
+    def test_user_register(self):
+        data =json.dumps({"username":"user1","email":"email@example.com","password":"password"})
+        print(data)
+        client = APIRequestFactory()
+        #client = APIClient()
+        request = client.post(path='/register',data=data,content_type='application/json')
+        response = UserRegister.as_view()(request)
+        self.assertEqual( response.status_code ,201)
+        
+    def test_user_login(self):
+        data =json.dumps({"email":"email@example.com","password":"password"})
+        print(data)
+        client = APIRequestFactory()
+        #client = APIClient()
+        request = client.post(path='/login',data=data,content_type='application/json')
+        response =UserLogin.as_view()(request)
+        self.assertEqual( response.status_code ,200)
             
     
