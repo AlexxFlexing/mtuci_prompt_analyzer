@@ -18,7 +18,7 @@ Windows:
 myenv/scripts/activate
 pip install -r requirements.txt  
 ```  
-Linux:
+  Linux:
 ```
 source myenv/bin/activate
 ```
