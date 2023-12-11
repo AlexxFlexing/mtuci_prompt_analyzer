@@ -5,7 +5,7 @@ In order to setup backend you need:
 
  - **1. Clone this repo**
 ```
-git clone 
+git clone https://github.com/AlexxFlexing/mtuci_prompt_analyzer.git
 ```
  - **2.Inside cloned repo create python virtual envirement**
   For example:
