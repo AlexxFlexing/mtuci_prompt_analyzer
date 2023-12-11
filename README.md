@@ -13,7 +13,7 @@ git clone https://github.com/AlexxFlexing/mtuci_prompt_analyzer.git
 python -m venv myenv
 ```
 - **3.After you activate venv, install all of the dependencies**  
-- Windows:
+Windows:
 ```
 myenv/scripts/activate
 pip install -r requirements.txt
