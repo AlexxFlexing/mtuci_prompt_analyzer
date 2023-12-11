@@ -54,7 +54,7 @@ class UserRegister(APIView):
 													
 			token = Token.objects.create(user=user)                                                 
 			if user:																		
-				return Response({'token': token.key, 'user': serializer.data},	status=status.HTTP_201_CREATED)			
+				return Response({'token': token.key},	status=status.HTTP_201_CREATED)			
 		return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -70,7 +70,7 @@ class UserLogin(APIView):																	# JSON data input format:
 			user = serializer.check_user(data)
 			token, created = Token.objects.get_or_create(user=user)
 			login(request, user)
-			return Response({'token': token.key, 'user': serializer.data['email']},status=status.HTTP_200_OK)
+			return Response({'token': token.key},status=status.HTTP_200_OK)
 
 
 class UserLogout(APIView):

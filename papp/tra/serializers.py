@@ -18,17 +18,12 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 		user_obj.save()
 		return user_obj
 
-			#user = User.objects.create(
-       		#email=validated_data['email'],
-       		#username=validated_data['username'],
-       		#password = make_password(validated_data['password'])
-
 class UserLoginSerializer(serializers.Serializer):
 	email = serializers.EmailField()
 	password = serializers.CharField()
 	##
 	def check_user(self, clean_data):
-		user = authenticate(username=clean_data['email'], password=clean_data['password'])
+		user = authenticate(username=clean_data["email"], password=clean_data["password"])
 		if not user:
 			raise ValidationError('user not found')
 		return user
