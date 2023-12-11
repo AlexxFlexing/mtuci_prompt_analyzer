@@ -16,7 +16,7 @@ python -m venv myenv
 Windows:
 ```
 myenv/scripts/activate
-pip install -r requirements.txt
+pip install -r requirements.txt  
 ```  
 Linux:
 ```
