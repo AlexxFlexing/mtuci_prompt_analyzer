@@ -45,10 +45,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework.authtoken',
     'rest_framework',
     'corsheaders',
+    'djoser',
     'tra',
 ]
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION':[
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
 AUTH_USER_MODEL = 'tra.AppUser'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
