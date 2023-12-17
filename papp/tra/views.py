@@ -12,6 +12,7 @@ from rest_framework import permissions, status
 from .validations import custom_validation, validate_email, validate_password
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view
+import requests
 
 
 
@@ -22,6 +23,8 @@ sys.path.append(BASE_DIR)
 
     
 
+	
+
 
 
 class dataUpload(APIView):
@@ -30,16 +33,19 @@ class dataUpload(APIView):
 		
 		serializer = DataSerializer(data=request.data)
 		if serializer.is_valid(raise_exception=True):
-			def random_string(get):
-				
-					
-				random_str = ''
-				for i in range(random.randint(0,int(get))):		
-					random_str += random.choice(ascii_letters)
-				return random_str
-			
+			def make_request_to_fastapi(get):
+				fastapi_url = "http://localhost:8000/api/data"  
+				try:
+					response = requests.post(url=fastapi_url,data=get,content_type='application/json')		
+					if response.status_code == 200:			
+						return Response()
+					else:
+						return Response({"error": "Failed to retrieve data from FastAPI server"}, status=500)
+				except requests.exceptions.RequestException as e:
+					# Если возникла ошибка при отправке запроса, верните ошибку
+					return Response({"error": str(e)}, status=500)
 			if serializer.data:
-				return Response({'data': random_string(get=len(serializer.data["body"])) }, status=status.HTTP_200_OK)
+				return Response({'data': make_request_to_fastapi(get=serializer.data["body"]) }, status=status.HTTP_200_OK)
 		return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
