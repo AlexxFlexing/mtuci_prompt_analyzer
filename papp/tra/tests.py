@@ -1,5 +1,5 @@
 from .models import AppUser
-from rest_framework.test import APIRequestFactory, APITestCase, APIClient
+from rest_framework.test import APIRequestFactory, APITestCase
 from .views import UserLogin, UserRegister
 import json
 from importlib import import_module
@@ -19,9 +19,9 @@ class LoginTest(APITestCase):
        
     def test_user_login(self):
         data =json.dumps({"email":"email@example.com","password":"password"})
-        user = AppUser.objects.create_user(email = "email@example.com",password="password")
+        user = AppUser.objects.create_user(email = "email@example.com",password="password")  # !!!Обязательно нужно иначе тесты не будут работать!!!
         client = APIRequestFactory()
-        engine = import_module(settings.SESSION_ENGINE)
+        engine = import_module(settings.SESSION_ENGINE) # !!!
         session_key = None
         request = client.post(path='/login',data=data,content_type='application/json')
         request.session = engine.SessionStore(session_key)      
