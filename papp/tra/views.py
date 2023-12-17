@@ -11,7 +11,7 @@ from .serializers import UserRegisterSerializer, UserLoginSerializer, UserSerial
 from rest_framework import permissions, status
 from .validations import custom_validation, validate_email, validate_password
 from rest_framework.authtoken.models import Token
-
+from rest_framework.decorators import api_view
 
 
 
@@ -25,7 +25,7 @@ sys.path.append(BASE_DIR)
 
 
 class dataUpload(APIView):
-	permission_classes = (permissions.IsAuthenticated,) 
+	permission_classes = (permissions.AllowAny,) 
 	def post(self, request):
 		
 		serializer = DataSerializer(data=request.data)
@@ -39,7 +39,7 @@ class dataUpload(APIView):
 				return random_str
 			
 			if serializer.data:
-				return Response({'data': random_string(get=int(serializer.data["body"])) }, status=status.HTTP_200_OK)
+				return Response({'data': random_string(get=len(serializer.data["body"])) }, status=status.HTTP_200_OK)
 		return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
