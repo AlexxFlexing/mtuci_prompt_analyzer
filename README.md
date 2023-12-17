@@ -13,9 +13,16 @@ git clone https://github.com/AlexxFlexing/mtuci_prompt_analyzer.git
 python -m venv myenv
 ```
 - **3.After you activate venv, install all of the dependencies**
+
+Windows:  
+```  
+myenv/scripts/activate  
+pip install -r requirements.txt  
+```  
+ Linux:
 ```
-myenv/scripts/activate
-pip install -r requirements.txt
+source myenv/bin/activate
+pip install -r requirements.txt  
 ```
 - **4. go to into papp directory and run server**
 ```
