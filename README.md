@@ -32,3 +32,9 @@ cd papp
 python manage.py runserver
 ```
 
+## Docker
+
+```
+docker build .
+docker run -it
+```

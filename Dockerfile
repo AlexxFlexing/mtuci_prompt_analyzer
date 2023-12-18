@@ -1,11 +1,13 @@
-FROM ubuntu:latest
+FROM python:3.9
 
-COPY requiremets.txt requiremets.txt
+COPY requirements.txt requirements.txt
 
-RUN pip install -r requiremets.txt
+RUN pip3 install --upgrade pip
+RUN pip3 install -r requirements.txt
 
 RUN git clone --branch telegram-bot https://github.com/AlexxFlexing/mtuci_prompt_analyzer.git telegram
+RUN git clone --branch master https://github.com/AlexxFlexing/mtuci_prompt_analyzer.git backend
 
 COPY teletoken telegram/resources/
 
-CMD telegram/telegram.py & backend/pappmanage.py runserver
+CMD python telegram/telegram.py & python backend/pappmanage.py runserver
