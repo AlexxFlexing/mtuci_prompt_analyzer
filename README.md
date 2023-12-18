@@ -3,6 +3,8 @@ Welcome to mtuci_prompt_analyzer backend!
 
 In order to setup backend you need:
 
+## Manually
+
  - **1. Clone this repo**
 ```
 git clone https://github.com/AlexxFlexing/mtuci_prompt_analyzer.git
@@ -29,3 +31,4 @@ pip install -r requirements.txt
 cd papp
 python manage.py runserver
 ```
+
